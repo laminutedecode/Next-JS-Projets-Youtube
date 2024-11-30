@@ -1,0 +1,49 @@
+{
+  "hero": {
+    "title": "Discover the World",
+    "subtitle": "Travel through the most beautiful destinations",
+    "cta": "Start the adventure"
+  },
+  "destinations": {
+    "title": "Popular Destinations",
+    "paris": {
+      "title": "Paris",
+      "description": "The city of love and light"
+    },
+    "tokyo": {
+      "title": "Tokyo",
+      "description": "Where tradition meets modernity"
+    },
+    "nyc": {
+      "title": "New York",
+      "description": "The city that never sleeps"
+    }
+  },
+  "features": {
+    "title": "Why Choose Us",
+    "expert": {
+      "title": "Expert Guides",
+      "description": "Passionate professionals"
+    },
+    "quality": {
+      "title": "Premium Quality",
+      "description": "Best service guaranteed"
+    },
+    "support": {
+      "title": "24/7 Support",
+      "description": "Always there for you"
+    }
+  },
+  "cta": {
+    "title": "Ready to Go?",
+    "subtitle": "Book your next adventure now",
+    "button": "Book Now"
+  },
+  "footer": {
+    "rights": "All rights reserved",
+    "privacy": "Privacy Policy",
+    "contact": "Contact",
+    "about": "About",
+    "terms": "Terms of Use"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "hero": {
+    "title": "Descubre el Mundo",
+    "subtitle": "Viaja por los destinos más hermosos",
+    "cta": "Comienza la aventura"
+  },
+  "destinations": {
+    "title": "Destinos Populares",
+    "paris": {
+      "title": "París",
+      "description": "La ciudad del amor y la luz"
+    },
+    "tokyo": {
+      "title": "Tokio",
+      "description": "Donde la tradición encuentra la modernidad"
+    },
+    "nyc": {
+      "title": "Nueva York",
+      "description": "La ciudad que nunca duerme"
+    }
+  },
+  "features": {
+    "title": "Por Qué Elegirnos",
+    "expert": {
+      "title": "Guías Expertos",
+      "description": "Profesionales apasionados"
+    },
+    "quality": {
+      "title": "Calidad Premium",
+      "description": "Mejor servicio garantizado"
+    },
+    "support": {
+      "title": "Soporte 24/7",
+      "description": "Siempre ahí para ti"
+    }
+  },
+  "cta": {
+    "title": "¿Listo para Partir?",
+    "subtitle": "Reserva tu próxima aventura ahora",
+    "button": "Reservar"
+  },
+  "footer": {
+    "rights": "Todos los derechos reservados",
+    "privacy": "Política de privacidad",
+    "contact": "Contacto",
+    "about": "Sobre nosotros",
+    "terms": "Términos de uso"
+  }
+}
