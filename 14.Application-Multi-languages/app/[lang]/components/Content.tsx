@@ -10,6 +10,7 @@ import { Destination,  Feature, Translations } from '@/app/types/types'
 export default function Content() {
 
   const translations: Record<string, Translations> = {fr,en,es}
+  // Le type Record est utilisé pour décrire un objet où les clés sont des chaînes de caractères (string) et les valeurs sont de type Translations.
   const {lang} = useLang()
   const  t = translations[lang]
 

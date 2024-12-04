@@ -1,0 +1,20 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Entry {
+  id        String   @id @default(uuid())
+  type      String   // 'income' ou 'expense'
+  amount    Float
+  category  String
+  frequency String   // 'one_time', 'weekly', ou 'monthly'
+  createdAt DateTime @default(now())
+
+  @@index([type])
+  @@index([frequency])
+} 

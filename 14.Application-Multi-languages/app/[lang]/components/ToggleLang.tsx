@@ -26,6 +26,7 @@ export default function ToggleLang() {
       <div className="relative group">
         <button className="flex items-center space-x-2 bg-white/90 backdrop-blur-sm px-4 py-2 rounded-lg shadow-lg hover:bg-white transition-all">
         <Image  src={languages[lang as keyof typeof languages]?.flag } width={16} height={16} alt='Flag'/>
+        {/* keyof est un opérateur de type qui permet de récupérer les clés d'un type d'objet en tant qu'union de chaînes. */}
           <span className="font-medium text-gray-800 text-sm">{languages[lang as keyof typeof languages].name}</span>
         </button>
 
