@@ -1,0 +1,22 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Reservation {
+  id          Int      @id @default(autoincrement())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  seats       String   // Liste des sièges sélectionnés (format JSON ou CSV)
+  totalPrice  Float    // Prix total de la réservation
+  userEmail   String   // Email de l'utilisateur ayant réservé
+  paymentId   String   @unique // ID de la session Stripe pour éviter les doublons
+}
+
