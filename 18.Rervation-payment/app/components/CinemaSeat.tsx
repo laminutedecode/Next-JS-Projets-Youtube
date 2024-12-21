@@ -1,19 +1,22 @@
 "use client"
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Seat } from "../types/types";
 
 const CinemaSeatSelector: React.FC = () => {
-  const rows = 5; // Nombre de rangées
-  const columns = 10; // Nombre de colonnes
-  const seatPrice = 5; // Prix par place
+  // Configuration de base de notre salle de cinéma
+  const rows = 5; // Définit le nombre de rangées dans la salle
+  const columns = 10; // Définit le nombre de sièges par rangée
+  const seatPrice = 5; // Prix unitaire d'un siège en euros
 
-  const [selectedSeats, setSelectedSeats] = useState<number[]>([]);
-  const [reservedSeats, setReservedSeats] = useState<number[]>([]);
+  // États (variables qui peuvent changer) du composant
+  const [selectedSeats, setSelectedSeats] = useState<number[]>([]); // Stocke les sièges sélectionnés par l'utilisateur
+  const [reservedSeats, setReservedSeats] = useState<number[]>([]); // Stocke les sièges déjà réservés
 
-  // Récupérer les places réservées au chargement du composant
+  // useEffect s'exécute au chargement du composant
   useEffect(() => {
     const fetchReservedSeats = async () => {
       try {
+        // Appel à notre API pour récupérer les sièges déjà réservés
         const response = await fetch('/api/seats');
         const data = await response.json();
         setReservedSeats(data.reservedSeats);
@@ -23,34 +26,38 @@ const CinemaSeatSelector: React.FC = () => {
     };
 
     fetchReservedSeats();
-  }, []);
+  }, []); // [] signifie que useEffect ne s'exécute qu'une fois au chargement
 
-  // Générer des places
+  // Création du tableau de sièges
   const seats: Seat[] = Array.from({ length: rows * columns }, (_, i) => ({
-    id: i,
-    row: Math.floor(i / columns) + 1,
-    column: (i % columns) + 1,
-    reserved: reservedSeats.includes(i),
+    id: i, // Identifiant unique du siège
+    row: Math.floor(i / columns) + 1, // Calcul du numéro de rangée
+    column: (i % columns) + 1, // Calcul du numéro de colonne
+    reserved: reservedSeats.includes(i), // Vérifie si le siège est déjà réservé
   }));
 
-  // Gérer la sélection de place
+  // Fonction appelée quand un utilisateur clique sur un siège
   const toggleSeatSelection = (id: number) => {
     setSelectedSeats((prev) =>
-      prev.includes(id) ? prev.filter((seatId) => seatId !== id) : [...prev, id]
+      prev.includes(id) 
+        ? prev.filter((seatId) => seatId !== id) // Désélectionne le siège s'il était sélectionné
+        : [...prev, id] // Ajoute le siège aux sélections s'il ne l'était pas
     );
   };
 
+  // Fonction pour gérer le paiement
   const handleCheckout = async () => {
     const totalPrice = selectedSeats.length * seatPrice; // Calcul du prix total
   
+    // Appel à notre API de paiement
     const response = await fetch("/api/payement", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         seats: selectedSeats,
         userEmail: "test@example.com",
-        price: totalPrice, // Ajouter le prix total
-        title: "Billeterie ", // Titre pour Stripe
+        price: totalPrice,
+        title: "Billeterie",
       }),
     });
   
@@ -58,7 +65,7 @@ const CinemaSeatSelector: React.FC = () => {
     if (error) {
       console.error("Payment error:", error);
     } else if (url) {
-      window.location.href = url; // Redirection vers Stripe Checkout
+      window.location.href = url; // Redirection vers la page de paiement Stripe
     }
   };
   

@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 63, "column": 0}, "map": {"version":3,"sources":["file://C%3A/Users/Utilisateur/Desktop/my-app/app/api/users/route.ts"],"sourcesContent":["import { PrismaClient } from '@prisma/client'\r\nimport { NextResponse } from 'next/server'\r\n\r\nconst prisma = new PrismaClient()\r\n\r\nexport async function POST(request: Request) {\r\n  try {\r\n    const data = await request.json()\r\n    const user = await prisma.user.create({ \r\n      data: {\r\n        ...data,\r\n        technologies: JSON.stringify(data.technologies)\r\n      }\r\n    })\r\n    return NextResponse.json(user)\r\n  } catch (error) {\r\n    return NextResponse.json({ error: 'Erreur lors de la création de l\\'utilisateur' }, { status: 500 })\r\n  }\r\n} "],"names":[],"mappings":";;;AAAA;AACA;;;AAEA,MAAM,SAAS,IAAI,6HAAA,CAAA,eAAY;AAExB,eAAe,KAAK,OAAgB;IACzC,IAAI;QACF,MAAM,OAAO,MAAM,QAAQ,IAAI;QAC/B,MAAM,OAAO,MAAM,OAAO,IAAI,CAAC,MAAM,CAAC;YACpC,MAAM;gBACJ,GAAG,IAAI;gBACP,cAAc,KAAK,SAAS,CAAC,KAAK,YAAY;YAChD;QACF;QACA,OAAO,gIAAA,CAAA,eAAY,CAAC,IAAI,CAAC;IAC3B,EAAE,OAAO,OAAO;QACd,OAAO,gIAAA,CAAA,eAAY,CAAC,IAAI,CAAC;YAAE,OAAO;QAA+C,GAAG;YAAE,QAAQ;QAAI;IACpG;AACF"}},
+    {"offset": {"line": 89, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}

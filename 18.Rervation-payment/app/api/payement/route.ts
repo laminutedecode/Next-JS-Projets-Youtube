@@ -1,19 +1,21 @@
+import { ReservationData } from "@/app/types/types";
+import prisma from "@/utils/db";
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
-import prisma from "@/utils/db";
-import { ReservationData } from "@/app/types/types";
 
-
+// Initialisation de l'instance Stripe avec notre clé secrète
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: "2024-11-20.acacia",
 });
 
+// Fonction qui gère les requêtes POST pour le paiement
 export const POST = async (request: NextRequest) => {
   try {
+    // Récupération des données envoyées par le client
     const data: ReservationData = await request.json();
     console.log("Data received:", data);
 
-    // Vérification des données
+    // Vérifications de sécurité
     if (!data.seats || data.seats.length === 0) {
       throw new Error("No seats selected.");
     }
@@ -21,23 +23,24 @@ export const POST = async (request: NextRequest) => {
       throw new Error("Invalid reservation data.");
     }
 
-    // Création du client Stripe
+    // Création d'un client Stripe
     const customer = await stripe.customers.create({
       email: data.userEmail,
       name: "Cinema Customer",
     });
-    console.log("Customer created:", customer.id);
 
-    // Calcul du prix en centimes
+    // Conversion du prix en centimes (Stripe utilise les centimes)
     const amountInCents = Math.round(data.price * 100);
 
-    // Création de la session Stripe Checkout
+    // Création de la session de paiement Stripe
     const checkOutSession = await stripe.checkout.sessions.create({
-      payment_method_types: ["card"],
+      payment_method_types: ["card"], // Type de paiement accepté
       customer: customer.id,
       mode: "payment",
+      // URLs de redirection après le paiement
       success_url: `${process.env.NEXT_PUBLIC_BASE_URL}/success?session_id={CHECKOUT_SESSION_ID}`,
       cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL}/cancel`,
+      // Détails du produit
       line_items: [
         {
           quantity: 1,
@@ -50,15 +53,14 @@ export const POST = async (request: NextRequest) => {
           },
         },
       ],
+      // Métadonnées pour suivre la réservation
       metadata: {
         seats: JSON.stringify(data.seats),
         userEmail: data.userEmail,
       },
     });
 
-    console.log("Checkout session created:", checkOutSession.url);
-
-    // Sauvegarde de la réservation temporaire dans la BDD
+    // Sauvegarde de la réservation dans la base de données
     await prisma.reservation.create({
       data: {
         seats: JSON.stringify(data.seats),
@@ -68,10 +70,7 @@ export const POST = async (request: NextRequest) => {
       },
     });
 
-   
-
-
-    // Retourner l'URL de la session Checkout
+    // Retourne l'URL de paiement Stripe
     return NextResponse.json({ url: checkOutSession.url }, { status: 200 });
   } catch (error: any) {
     console.error("Error occurred:", error.message);
