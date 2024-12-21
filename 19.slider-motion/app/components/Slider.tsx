@@ -67,7 +67,7 @@ export default function Slider({images} : SliderProps) {
             x: {type: "spring", stiffness: 300, damping: 30},
             opacity: {duration: .2}
           }}
-          className="absolute h-full w-full object-wover"
+          className="absolute h-full w-full object-cover"
         />
         <motion.div
           key={`overlay-${currentIndex}`}
