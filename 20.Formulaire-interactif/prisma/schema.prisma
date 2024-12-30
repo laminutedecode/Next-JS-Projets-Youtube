@@ -20,7 +20,7 @@ model User {
   url_youtube   String?
   url_site      String?
   job           String
-  technologies  String   // Stocké comme JSON string
+  technologies  String   
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }

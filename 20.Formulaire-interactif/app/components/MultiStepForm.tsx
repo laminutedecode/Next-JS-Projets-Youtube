@@ -26,81 +26,81 @@ const steps = [
 ]
 
 export default function MultiStepForm() {
-  const [step, setStep] = useState(1)
-  const router = useRouter()
-  const [selectedTech, setSelectedTech] = useState<string[]>([])
-  
-  const { register, handleSubmit, trigger, formState: { errors }, watch, setValue } = useForm<FormData>({
-    resolver: yupResolver(userSchema),
-    mode: 'onChange',
-    defaultValues: {
-      nom: '',
-      prenom: '',
-      email: '',
-      description: '',
-      url_github: '',
-      url_youtube: '',
-      url_site: '',
-      job: '',
-      technologies: []
-    }
-  })
+const [step, setStep] = useState(1);
+const router = useRouter();
+const [selectedTech, setSelectedTech] = useState<string[]>([]);
 
-  useEffect(() => {
-    const watchedTech = watch('technologies')
-    if (watchedTech && watchedTech.length > 0 && selectedTech.length === 0) {
-      setSelectedTech(watchedTech)
-    }
-  }, [watch, selectedTech])
+const { register, handleSubmit, trigger, formState: { errors }, watch, setValue } = useForm<FormData>({
+  resolver: yupResolver(userSchema),
+  mode: 'onChange',
+  defaultValues: {
+    nom: '',            
+    prenom: '',          
+    email: '',           
+    description: '',     
+    url_github: '',      
+    url_youtube: '',     
+    url_site: '',        
+    job: '',             
+    technologies: []     
+  }
+});
 
-  const validateStep = async (nextStep: number) => {
-    let fieldsToValidate: (keyof FormData)[] = []
+useEffect(() => {
+  const watchedTech = watch('technologies'); 
+  if (watchedTech && watchedTech.length > 0 && selectedTech.length === 0) {
+    setSelectedTech(watchedTech); 
+  }
+}, [watch, selectedTech]); 
+
+const validateStep = async (nextStep: number) => {
+  let fieldsToValidate: (keyof FormData)[] = [];
+
+  switch (step) {
+    case 1:
+      fieldsToValidate = ['nom', 'prenom', 'email'];
+      break;
+    case 2:
+      fieldsToValidate = ['description']; 
+      break;
+    case 3:
+      fieldsToValidate = ['job', 'technologies']; 
+      break;
+  }
+
+  const isValid = await trigger(fieldsToValidate);
+  if (isValid) {
+    setStep(nextStep); 
+  }
+};
+
+const onSubmit = async (data: FormData) => {
+  try {
+    const response = await fetch('/api/users', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' }, 
+      body: JSON.stringify(data), 
+    });
     
-    switch (step) {
-      case 1:
-        fieldsToValidate = ['nom', 'prenom', 'email']
-        break
-      case 2:
-        fieldsToValidate = ['description']
-        break
-      case 3:
-        fieldsToValidate = ['job', 'technologies']
-        break
+    if (response.ok) {
+      router.push('/dashboard');
     }
-
-    const isValid = await trigger(fieldsToValidate)
-    if (isValid) {
-      setStep(nextStep)
-    }
+  } catch (error) {
+    console.error(error); 
   }
+};
 
-  const onSubmit = async (data: FormData) => {
-    try {
-      const response = await fetch('/api/users', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data),
-      })
-      
-      if (response.ok) {
-        router.push('/dashboard')
-      }
-    } catch (error) {
-      console.error(error)
-    }
-  }
+const handleSelectTech = (tech: string) => {
+  setSelectedTech(prev => 
+    prev.includes(tech) 
+      ? prev.filter(t => t !== tech)
+      : [...prev, tech] 
+  );
+};
 
-  const handleSelectTech = (tech: string) => {
-    setSelectedTech(prev => 
-      prev.includes(tech) 
-        ? prev.filter(t => t !== tech)
-        : [...prev, tech]
-    )
-  }
-
-  useEffect(() => {
-    setValue('technologies', selectedTech)
-  }, [selectedTech, setValue])
+useEffect(() => {
+  setValue('technologies', selectedTech); 
+}, [selectedTech, setValue]); 
 
   return (
     <div className="max-w-2xl mx-auto p-6">
