@@ -1,0 +1,92 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Company {
+  id          String    @id @default(cuid())
+  name        String
+  address     String
+  postalCode  String
+  country     String
+  siret       String
+  iban        String
+  phone       String
+  clients     Client[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Client {
+  id        String   @id @default(cuid())
+  firstName String
+  lastName  String
+  address   String
+  phone     String
+  email     String
+  companyId String
+  company   Company   @relation(fields: [companyId], references: [id])
+  invoices  Invoice[]
+  quotes    Quote[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Invoice {
+  id          String    @id @default(cuid())
+  number      String    @unique
+  date        DateTime  @default(now())
+  dueDate     DateTime
+  status      String    @default("DRAFT") // DRAFT, SENT, PAID
+  clientId    String
+  client      Client    @relation(fields: [clientId], references: [id])
+  items       InvoiceItem[]
+  totalHT     Float
+  tva         Float?
+  totalTTC    Float
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Quote {
+  id          String    @id @default(cuid())
+  number      String    @unique
+  date        DateTime  @default(now())
+  validUntil  DateTime
+  status      String    @default("DRAFT") // DRAFT, SENT, ACCEPTED, REJECTED
+  clientId    String
+  client      Client    @relation(fields: [clientId], references: [id])
+  items       QuoteItem[]
+  totalHT     Float
+  tva         Float?
+  totalTTC    Float
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model InvoiceItem {
+  id          String    @id @default(cuid())
+  description String
+  quantity    Int
+  unitPrice   Float
+  total       Float
+  invoiceId   String
+  invoice     Invoice   @relation(fields: [invoiceId], references: [id])
+}
+
+model QuoteItem {
+  id          String    @id @default(cuid())
+  description String
+  quantity    Int
+  unitPrice   Float
+  total       Float
+  quoteId     String
+  quote       Quote     @relation(fields: [quoteId], references: [id])
+}
