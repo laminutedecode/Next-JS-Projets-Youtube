@@ -8,29 +8,31 @@ Ce dépôt contient une collection de projets tutoriels Next.js issus de [La Min
 
 ## 📚 Liste des Projets
 
-1. **TaxiApp** - Application de réservation de taxi
-2. **Activity-App** - Application de gestion d'activités
-3. **Sixt-clone** - Clone de l'interface Sixt
-4. **Pinterest-clone** - Clone de Pinterest
-5. **Coffeeshop-app** - Application pour café
-6. **Chat-app** - Application de messagerie instantanée
-7. **Blog** - Système de blog simple
-8. **Mini-saas** - Mini application SaaS
-9. **Locations-app** - Application de gestion de locations
-10. **Reservation-Restaurant** - Système de réservation pour restaurant
-11. **Pizza-App** - Application de commande de pizzas
-12. **Galerie-filtre** - Galerie d'images avec filtres
-13. **Crud-Prisma** - Opérations CRUD avec Prisma
-14. **Application-Multi-languages** - Application multilingue
-15. **Blog-mongodb** - Blog avec MongoDB
-16. **Dashboard-Financy** - Tableau de bord financier
-17. **Paypal-Premium-Member** - Système d'adhésion premium avec PayPal
-18. **Reservation-payment** - Système de réservation avec paiement
-19. **Slider-motion** - Slider animé avec Framer Motion
-20. **Formulaire-interactif** - Formulaire dynamique et interactif
-21. **CurrenciesConvertor** - Convertisseur de devises
-22. **Gestion-stocks-librairy** - Gestion de stock pour librairie
-23. **Editeur-factures-devis** - Éditeur de factures et devis
+| N° | Projet | Description | Catégorie |
+|----|--------|-------------|-----------|
+| 01 | TaxiApp | Application de réservation de taxi | Transport |
+| 02 | Activity-App | Application de gestion d'activités | Gestion |
+| 03 | Sixt-clone | Clone de l'interface Sixt | Clone |
+| 04 | Pinterest-clone | Clone de Pinterest | Clone |
+| 05 | Coffeeshop-app | Application pour café | E-commerce |
+| 06 | Chat-app | Application de messagerie instantanée | Communication |
+| 07 | Blog | Système de blog simple | CMS |
+| 08 | Mini-saas | Mini application SaaS | Business |
+| 09 | Locations-app | Application de gestion de locations | Immobilier |
+| 10 | Reservation-Restaurant | Système de réservation pour restaurant | Restauration |
+| 11 | Pizza-App | Application de commande de pizzas | E-commerce |
+| 12 | Galerie-filtre | Galerie d'images avec filtres | Média |
+| 13 | Crud-Prisma | Opérations CRUD avec Prisma | Base de données |
+| 14 | Application-Multi-languages | Application multilingue | Internationalisation |
+| 15 | Blog-mongodb | Blog avec MongoDB | CMS |
+| 16 | Dashboard-Financy | Tableau de bord financier | Finance |
+| 17 | Paypal-Premium-Member | Système d'adhésion premium avec PayPal | Paiement |
+| 18 | Reservation-payment | Système de réservation avec paiement | E-commerce |
+| 19 | Slider-motion | Slider animé avec Framer Motion | UI/UX |
+| 20 | Formulaire-interactif | Formulaire dynamique et interactif | UI/UX |
+| 21 | CurrenciesConvertor | Convertisseur de devises | Finance |
+| 22 | Gestion-stocks-librairy | Gestion de stock pour librairie | Gestion |
+| 23 | Editeur-factures-devis | Éditeur de factures et devis | Business |
 
 ## 🚀 Pour Commencer
 
